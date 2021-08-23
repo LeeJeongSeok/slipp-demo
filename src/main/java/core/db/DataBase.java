@@ -20,4 +20,9 @@ public class DataBase {
     public static Collection<User> findAll() {
         return users.values();
     }
+
+    public static void updateUser(User user) {
+        users.remove(user.getUserId(), user);
+        users.put(user.getUserId(), user);
+    }
 }
