@@ -29,6 +29,10 @@ public class User {
         return email;
     }
 
+    public boolean isPassword(String newPassword) {
+        return this.password.equals(newPassword);
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -65,5 +69,4 @@ public class User {
             return false;
         return true;
     }
-
 }
