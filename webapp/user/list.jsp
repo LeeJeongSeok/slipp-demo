@@ -93,7 +93,11 @@
                                 <td>${user.userId}</td>
                                 <td>${user.name}</td>
                                 <td>${user.email}</td>
-                                <td><a href="/user/update?user=${user.userId}" class="btn btn-success" role="button">수정</a>
+                                <c:choose>
+                                    <c:when test="${user.userId eq sessionScope.user.userId}">
+                                        <td><a href="/user/update?user=${user.userId}" class="btn btn-success" role="button">수정</a>
+                                    </c:when>
+                                </c:choose>
                                 </td>
                             </tr>
                         </c:forEach>
