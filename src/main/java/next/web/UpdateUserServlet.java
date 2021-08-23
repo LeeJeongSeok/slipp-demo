@@ -10,6 +10,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet("/update/user")
@@ -23,7 +24,19 @@ public class UpdateUserServlet extends HttpServlet {
         User user = new User(req.getParameter("userId"), req.getParameter("password"), req.getParameter("name"),
                 req.getParameter("email"));
         log.debug("user : {}", user.toString());
-        DataBase.updateUser(user);
-        resp.sendRedirect("/user/list");
+
+        HttpSession session = req.getSession();
+        Object value = session.getAttribute("user");
+
+        if (value != null) {
+            User sessionedUser = (User) value;
+
+            if (sessionedUser.getUserId().equals(user.getUserId())) {
+                DataBase.updateUser(user);
+                resp.sendRedirect("/user/list");
+            } else {
+                log.debug("자신의 정보만 수정할 수 있습니다.");
+            }
+        }
     }
 }
