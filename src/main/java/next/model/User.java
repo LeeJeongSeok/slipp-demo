@@ -29,6 +29,12 @@ public class User {
         return email;
     }
 
+    public void update(User updateUser) {
+        this.password = updateUser.password;
+        this.name = updateUser.name;
+        this.email = updateUser.email;
+    }
+
     public boolean isPassword(String newPassword) {
         return this.password.equals(newPassword);
     }
@@ -68,5 +74,19 @@ public class User {
         } else if (!userId.equals(other.userId))
             return false;
         return true;
+    }
+
+    public boolean isSameUser(User userFromSession) {
+        return userId.equals(userFromSession.userId);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }
